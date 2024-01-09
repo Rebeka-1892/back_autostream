@@ -1,28 +1,30 @@
 package com.projet_voiture.projet_voiture.modele;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+@Entity
 public class Marque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idmarque;
-    String nommmarque;
+    String nommarque;
     @ManyToOne
     @JoinColumn(name = "idcontinent")
     Continent continent;
 
-    public Marque(int idmarque, String nommmarque, Continent continent) {
+    public Marque(int idmarque, String nommarque, Continent continent) {
         this.idmarque = idmarque;
-        this.nommmarque = nommmarque;
+        this.nommarque = nommarque;
         this.continent = continent;
     }
 
-    public Marque(String nommmarque, Continent continent) {
-        this.nommmarque = nommmarque;
+    public Marque(String nommarque, Continent continent) {
+        this.nommarque = nommarque;
         this.continent = continent;
     }
 
@@ -35,11 +37,11 @@ public class Marque {
     public void setIdmarque(int idmarque) {
         this.idmarque = idmarque;
     }
-    public String getNommmarque() {
-        return nommmarque;
+    public String getNommarque() {
+        return nommarque;
     }
-    public void setNommmarque(String nommmarque) {
-        this.nommmarque = nommmarque;
+    public void setNommarque(String nommarque) {
+        this.nommarque = nommarque;
     }
     public Continent getContinent() {
         return continent;

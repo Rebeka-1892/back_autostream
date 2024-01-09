@@ -121,8 +121,7 @@ VALUES
 ('Système de contrôle de la stabilité', 3), 
 ('Système de sécurité actif', 3);
 
-
-INSERT INTO utilisateur (idutilisateur, nomutilisateur, email, mdp, isadmin) 
-VALUES 
-('U1', 'John Doe', 'john.doe@email.com', 'password123', 0), 
-('U2', 'Jane Smith', 'jane.smith@email.com', 'password456', 1);
+INSERT INTO utilisateur(idutilisateur, nomutilisateur, email, mdp, isadmin) 
+VALUES
+('USR' || LPAD(CAST(NEXTVAL('seq_user') AS VARCHAR), 3, '0'), 'John Doe', 'john.doe@email.com', '1234', 0),
+('USR' || LPAD(CAST(NEXTVAL('seq_user') AS VARCHAR), 3, '0'), 'Jane Smith', 'jane.smith@email.com', '1234', 1);

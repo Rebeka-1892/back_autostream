@@ -15,29 +15,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet_voiture.projet_voiture.modele.Type;
-import com.projet_voiture.projet_voiture.service.TypeService;
+import com.projet_voiture.projet_voiture.modele.Utilisateur;
+import com.projet_voiture.projet_voiture.service.UtilisateurService;
 
-@RequestMapping("/type")
+@RequestMapping("/utilisateur")
 @RestController
-public class TypeController {
-    @Autowired
-    private TypeService service;
+public class UtilisateurController {
+     @Autowired
+    private UtilisateurService service;
 
     @GetMapping
-    public List<Type> list() {
+    public List<Utilisateur> list() {
         return service.list();
     }
 
     @GetMapping("/{id}")
-    public Optional<Type> findById(@PathVariable("id") int id) {
+    public Optional<Utilisateur> findById(@PathVariable("id") String id) {
         return service.findById(id);
     }
     
     @PostMapping
-    public ResponseEntity<Type> insert( @RequestBody Type Type ) {
+    public ResponseEntity<Utilisateur> insert( @RequestBody Utilisateur Utilisateur ) {
         try {
-            Type inserted = service.insert(Type);
+            Utilisateur inserted = service.insert(Utilisateur);
             return new ResponseEntity<>(inserted, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,12 +45,15 @@ public class TypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Type> update( @PathVariable("id") int id, @RequestBody Type Type ) {
-        Optional<Type> to_update = service.findById(id);
+    public ResponseEntity<Utilisateur> update( @PathVariable("id") String id, @RequestBody Utilisateur Utilisateur ) {
+        Optional<Utilisateur> to_update = service.findById(id);
         if (to_update.isPresent()) {
-            Type updated = to_update.get();
-            updated.setNomtype( Type.getNomtype() );            
-            return new ResponseEntity<Type>(
+            Utilisateur updated = to_update.get();
+            updated.setEmail(Utilisateur.getEmail()); 
+            updated.setMdp(Utilisateur.getMdp());
+            updated.setNomutilisateur(Utilisateur.getNomutilisateur());  
+            
+            return new ResponseEntity<Utilisateur>(
                 service.insert(updated),
                 HttpStatus.OK
             );
@@ -59,7 +62,7 @@ public class TypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") int id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") String id) {
         try {
             service.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);

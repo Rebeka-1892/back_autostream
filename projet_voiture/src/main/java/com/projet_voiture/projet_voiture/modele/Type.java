@@ -1,9 +1,11 @@
 package com.projet_voiture.projet_voiture.modele;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

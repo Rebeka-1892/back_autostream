@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.projet_voiture.projet_voiture.modele.Marque;
 import com.projet_voiture.projet_voiture.service.MarqueService;
 
+@RequestMapping("/marque")
+@RestController
 public class MarqueController {
     @Autowired
     private MarqueService service;
@@ -45,7 +49,7 @@ public class MarqueController {
         Optional<Marque> to_update = service.findById(id);
         if (to_update.isPresent()) {
             Marque updated = to_update.get();
-            updated.setNommmarque(Marque.getNommmarque());    
+            updated.setNommarque(Marque.getNommarque());    
             updated.setContinent(Marque.getContinent());      
             return new ResponseEntity<Marque>(
                 service.insert(updated),

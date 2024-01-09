@@ -108,6 +108,8 @@ CREATE TABLE voiture(
  FOREIGN KEY(idinfo) REFERENCES info(idinfo)
 );
 
+CREATE SEQUENCE seq_user;
+
 CREATE TABLE utilisateur(
     idutilisateur VARCHAR(50) PRIMARY KEY,
     nomutilisateur VARCHAR(50),
