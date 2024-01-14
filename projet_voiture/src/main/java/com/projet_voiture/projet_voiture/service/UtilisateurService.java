@@ -1,32 +1,54 @@
 package com.projet_voiture.projet_voiture.service;
 
-import java.util.List;
-import java.util.Optional;
+import org.bson.Document;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.FindOneAndReplaceOptions;
+import com.mongodb.client.model.ReturnDocument;
 import com.projet_voiture.projet_voiture.modele.Utilisateur;
-import com.projet_voiture.projet_voiture.repository.UtilisateurRepository;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UtilisateurService {
-    @Autowired
-    private UtilisateurRepository repository;
+    private final MongoCollection<Document> UtilisateurCollection;
 
-    public List<Utilisateur> list() {
-        return repository.findAll();
+    public UtilisateurService(MongoClient mongoClient, @Value("${databaseName}") String databaseName,
+            @Value("${utilisateur}") String collectionName) {
+        this.UtilisateurCollection = mongoClient.getDatabase(databaseName).getCollection(collectionName);
+    }
+
+    public FindIterable<Document> findAll() {
+        return UtilisateurCollection.find();
     }
 
     public Utilisateur insert(Utilisateur Utilisateur) {
-        return repository.save(Utilisateur);
+        Document doc = new Document();
+        doc.append("idutilisateur", Utilisateur.getIdutilisateur());
+        doc.append("nomutilisateur", Utilisateur.getNomutilisateur());
+        doc.append("email", Utilisateur.getEmail());
+        doc.append("mdp", Utilisateur.getMdp());
+        doc.append("isadmin", Utilisateur.getIsadmin());
+      
+        FindOneAndReplaceOptions options = new FindOneAndReplaceOptions().upsert(true).returnDocument(ReturnDocument.AFTER);
+        Document result = UtilisateurCollection.findOneAndReplace(Filters.eq("idutilisateur", Utilisateur.getIdutilisateur()), doc, options);
+      
+        return new Utilisateur(result.getString("idutilisateur"), result.getString("nomutilisateur"), result.getString("email"), result.getString("mdp"), result.getInteger("isadmin"));
+    }      
+
+    public Document findById(String idUtilisateur) {
+        return UtilisateurCollection.find(new Document("idutilisateur", idUtilisateur)).first();
     }
 
-    public Optional<Utilisateur> findById(String idUtilisateur) {
-        return repository.findById(idUtilisateur);
+    public void updateUtilisateur(String idUtilisateur, Document updatedUtilisateur) {
+        UtilisateurCollection.updateOne(new Document("idutilisateur", idUtilisateur), new Document("$set", updatedUtilisateur));
     }
 
-    public void deleteById(String idUtilisateur) {
-        repository.deleteById(idUtilisateur);
+    public void deleteUtilisateur(String idUtilisateur) {
+        UtilisateurCollection.deleteOne(new Document("idutilisateur", idUtilisateur));
     }
 }

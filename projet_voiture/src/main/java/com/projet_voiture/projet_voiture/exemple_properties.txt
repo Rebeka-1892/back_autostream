@@ -1,0 +1,8 @@
+spring.datasource.url=jdbc:postgresql://postgres:616-1*3eb-bAfA6CA6Bgd-C246cAgg-3@viaduct.proxy.rlwy.net:23423/railway
+spring.datasource.username=postgres
+spring.datasource.password=616-1*3eb-bAfA6CA6Bgd-C246cAgg-3
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+
+spring.mvc.contentnegotiation.media-types.json=application/json
+spring.mvc.contentnegotiation.default-content-type=application/json

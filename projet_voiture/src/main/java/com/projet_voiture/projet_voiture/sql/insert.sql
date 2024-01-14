@@ -4,7 +4,7 @@ VALUES
 ('Famille'), 
 ('Compacte'), 
 ('4x4'), 
-('Électrique');
+('électrique');
 
 INSERT INTO continent (nomcontinent) 
 VALUES 
@@ -66,7 +66,7 @@ VALUES
 ('Bio-diesel'), 
 ('Ethanol'), 
 ('Gaz naturel'), 
-('Électrique');
+('électrique');
 
 INSERT INTO carrosserie (nomcarrosserie) 
 VALUES 
@@ -98,30 +98,5 @@ VALUES
 
 INSERT INTO type (nomtype) 
 VALUES 
-('Berline'), 
-('Break'), 
-('SUV'), 
-('Coupé'), 
-('Cabriolet'), 
-('Roadster'), 
-('Monospace');
-
-INSERT INTO options (nomoptions, idtype) 
-VALUES 
-('Airbags', 1), 
-('Systeme de navigation', 1), 
-('Caméra de recul', 1), 
-('Freins ABS', 1), 
-('Toit ouvrant', 2), 
-('Système audio haut de gamme', 2), 
-('Système de climatisation automatique', 2), 
-('Sieges en cuir', 2), 
-('Système de freinage d''urgence', 3), 
-('Système de surveillance de la pression des pneus', 3), 
-('Système de contrôle de la stabilité', 3), 
-('Système de sécurité actif', 3);
-
-INSERT INTO utilisateur(idutilisateur, nomutilisateur, email, mdp, isadmin) 
-VALUES
-('USR' || LPAD(CAST(NEXTVAL('seq_user') AS VARCHAR), 3, '0'), 'John Doe', 'john.doe@email.com', '1234', 0),
-('USR' || LPAD(CAST(NEXTVAL('seq_user') AS VARCHAR), 3, '0'), 'Jane Smith', 'jane.smith@email.com', '1234', 1);
+('Interieur'), 
+('Exterieur');

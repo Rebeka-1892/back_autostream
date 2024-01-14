@@ -1,9 +1,9 @@
 package com.projet_voiture.projet_voiture.modele;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document
 public class Utilisateur {
     @Id
     String idutilisateur;
@@ -11,12 +11,6 @@ public class Utilisateur {
     String email;
     String mdp;
     int isadmin;
-    
-    public Utilisateur(String nomutilisateur, String email, String mdp) {
-        this.nomutilisateur = nomutilisateur;
-        this.email = email;
-        this.mdp = mdp;
-    }
 
     public Utilisateur(String idutilisateur, String nomutilisateur, String email, String mdp, int isadmin) {
         this.idutilisateur = idutilisateur;

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projet_voiture.projet_voiture.modele.Marque;
 import com.projet_voiture.projet_voiture.modele.Modele;
 import com.projet_voiture.projet_voiture.repository.ModeleRepository;
 
@@ -16,6 +17,10 @@ public class ModeleService {
 
     public List<Modele> list() {
         return repository.findAll();
+    }
+
+    public List<Modele> findByMarque(Marque marque){
+        return repository.findByMarque(marque);
     }
 
     public Modele insert(Modele Modele) {
