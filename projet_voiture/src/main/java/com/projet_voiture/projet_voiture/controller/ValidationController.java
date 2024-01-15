@@ -1,54 +1,43 @@
 package com.projet_voiture.projet_voiture.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import com.projet_voiture.projet_voiture.modele.Validation;
 import com.projet_voiture.projet_voiture.service.ValidationService;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/validation")
+import java.util.List;
+
 @RestController
+@RequestMapping("/validation")
 public class ValidationController {
-    private final ValidationService ValidationService;
-
     @Autowired
-    public ValidationController(ValidationService ValidationService) {
-        this.ValidationService = ValidationService;
+    private ValidationService service;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Validation insert(@RequestBody Validation Validation){
+        return service.insert(Validation);
     }
 
     @GetMapping
-    public List<Document> findAll() {
-        return ValidationService.findAll().into(new ArrayList<>());
+    public List<Validation> findAll() {
+        return service.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<Validation> insert( @RequestBody Validation Validation ) {
-        try {
-            Validation inserted = ValidationService.insert(Validation);
-            return new ResponseEntity<>(inserted, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/{ValidationId}")
+    public Validation findById(@PathVariable String ValidationId){
+        return service.findById(ValidationId);
     }
 
-    @GetMapping("/{id}")
-    public Document findById(@PathVariable int id) {
-        return ValidationService.findById(id);
+    @PutMapping
+    public Validation updateValidation(@RequestBody Validation Validation){
+        return service.updateValidation(Validation);
     }
 
-    @PutMapping("/{id}")
-    public void updateValidation(@PathVariable int id, @RequestBody Document updatedValidation) {
-        ValidationService.updateValidation(id, updatedValidation);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteValidation(@PathVariable int id) {
-        ValidationService.deleteValidation(id);
+    @DeleteMapping("/{ValidationId}")
+    public String deleteValidation(@PathVariable String ValidationId){
+        return service.deleteValidation(ValidationId);
     }
 }

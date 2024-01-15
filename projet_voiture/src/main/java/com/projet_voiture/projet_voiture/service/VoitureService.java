@@ -1,65 +1,51 @@
 package com.projet_voiture.projet_voiture.service;
 
-import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.FindOneAndReplaceOptions;
-import com.mongodb.client.model.ReturnDocument;
-import com.projet_voiture.projet_voiture.modele.Voiture;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.projet_voiture.projet_voiture.modele.Voiture;
+import com.projet_voiture.projet_voiture.repository.VoitureRepository;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VoitureService {
-    private final MongoCollection<Document> VoitureCollection;
-
-    public VoitureService(MongoClient mongoClient, @Value("${databaseName}") String databaseName,
-            @Value("${voiture}") String collectionName) {
-        this.VoitureCollection = mongoClient.getDatabase(databaseName).getCollection(collectionName);
-    }
-
-    public FindIterable<Document> findAll() {
-        return VoitureCollection.find();
-    }
+    @Autowired
+    private VoitureRepository repository;
 
     public Voiture insert(Voiture Voiture) {
-        Document doc = new Document();
-        doc.append("idvoiture", Voiture.getIdvoiture());
-        doc.append("nbplace", Voiture.getNbplace());
-        doc.append("nbporte", Voiture.getNbporte());
-        doc.append("kilometrage", Voiture.getKilometrage());
-        doc.append("cylindre", Voiture.getCylindre());
-        doc.append("puissance", Voiture.getPuissance());
-        doc.append("fumeur", Voiture.getFumeur());
-        doc.append("datesortie", Voiture.getDatesortie());
-        doc.append("idconduite", Voiture.getIdconduite());
-        doc.append("idmodele", Voiture.getIdmodele());
-        doc.append("iddrivetype", Voiture.getIddrivetype());
-        doc.append("idtransmission", Voiture.getIdtransmission());
-        doc.append("idenergie", Voiture.getIdenergie());
-      
-        FindOneAndReplaceOptions options = new FindOneAndReplaceOptions().upsert(true).returnDocument(ReturnDocument.AFTER);
-        Document result = VoitureCollection.findOneAndReplace(Filters.eq("idvoiture", Voiture.getIdvoiture()), doc, options);
-      
-        return new Voiture(result.getInteger("idvoiture"), result.getInteger("nbplace"), result.getInteger("nbporte"), result.getDouble("kilometrage"), result.getDouble("cylindre"), result.getDouble("puissance"),
-        result.getInteger("fumeur"), result.getDate("datesortie"), result.getInteger("idconduite"), result.getInteger("idmodele"), result.getInteger("iddrivetype"), result.getInteger("idtransmission"),
-        result.getInteger("idenergie"));
-    }
-      
-
-    public Document findById(int idVoiture) {
-        return VoitureCollection.find(new Document("idvoiture", idVoiture)).first();
+        Voiture.setIdvoiture(UUID.randomUUID().toString().split("-")[0]);
+        return repository.save(Voiture);
     }
 
-    public void updateVoiture(int idVoiture, Document updatedVoiture) {
-        VoitureCollection.updateOne(new Document("idvoiture", idVoiture), new Document("$set", updatedVoiture));
+    public List<Voiture> findAll() {
+        return repository.findAll();
     }
 
-    public void deleteVoiture(int idVoiture) {
-        VoitureCollection.deleteOne(new Document("idvoiture", idVoiture));
+    public Voiture findById(String VoitureId){
+        return repository.findById(VoitureId).get();
+    }
+
+    public Voiture updateVoiture(Voiture VoitureRequest){
+        Voiture existingVoiture = repository.findById(VoitureRequest.getIdvoiture()).get();
+        existingVoiture.setNbplace(VoitureRequest.getNbplace());
+        existingVoiture.setNbporte(VoitureRequest.getNbporte());
+        existingVoiture.setKilometrage(VoitureRequest.getKilometrage());
+        existingVoiture.setCylindre(VoitureRequest.getCylindre());
+        existingVoiture.setPuissance(VoitureRequest.getPuissance());
+        existingVoiture.setFumeur(VoitureRequest.getFumeur());
+        existingVoiture.setIddrivetype(VoitureRequest.getIddrivetype());
+        existingVoiture.setDatesortie(VoitureRequest.getDatesortie());
+        existingVoiture.setIdconduite(VoitureRequest.getIdconduite());
+        existingVoiture.setIdmodele(VoitureRequest.getIdmodele());
+        existingVoiture.setIdtransmission(VoitureRequest.getIdtransmission());
+        existingVoiture.setIdenergie(VoitureRequest.getIdenergie());
+        return repository.save(existingVoiture);
+    }
+
+    public String deleteVoiture(String VoitureId){
+        repository.deleteById(VoitureId);
+        return VoitureId+" Voiture deleted from dashboard ";
     }
 }

@@ -1,54 +1,43 @@
 package com.projet_voiture.projet_voiture.controller;
 
-import com.projet_voiture.projet_voiture.modele.Options;
-import com.projet_voiture.projet_voiture.service.OptionsService;
-
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+import com.projet_voiture.projet_voiture.modele.Options;
+import com.projet_voiture.projet_voiture.service.OptionsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/options")
 @RestController
+@RequestMapping("/options")
 public class OptionsController {
-     private final OptionsService OptionsService;
-
     @Autowired
-    public OptionsController(OptionsService OptionsService) {
-        this.OptionsService = OptionsService;
+    private OptionsService service;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Options insert(@RequestBody Options Options){
+        return service.insert(Options);
     }
 
     @GetMapping
-    public List<Document> findAll() {
-        return OptionsService.findAll().into(new ArrayList<>());
+    public List<Options> findAll() {
+        return service.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<Options> insert( @RequestBody Options Options ) {
-        try {
-            Options inserted = OptionsService.insert(Options);
-            return new ResponseEntity<>(inserted, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/{OptionsId}")
+    public Options findById(@PathVariable String OptionsId){
+        return service.findById(OptionsId);
     }
 
-    @GetMapping("/{id}")
-    public Document findById(@PathVariable int id) {
-        return OptionsService.findById(id);
+    @PutMapping
+    public Options updateOptions(@RequestBody Options Options){
+        return service.updateOptions(Options);
     }
 
-    @PutMapping("/{id}")
-    public void updateOptions(@PathVariable int id, @RequestBody Document updatedOptions) {
-        OptionsService.updateOptions(id, updatedOptions);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteOptions(@PathVariable int id) {
-        OptionsService.deleteOptions(id);
+    @DeleteMapping("/{OptionsId}")
+    public String deleteOptions(@PathVariable String OptionsId){
+        return service.deleteOptions(OptionsId);
     }
 }

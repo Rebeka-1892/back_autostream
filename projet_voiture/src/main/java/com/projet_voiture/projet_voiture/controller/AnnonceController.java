@@ -1,55 +1,43 @@
 package com.projet_voiture.projet_voiture.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
 import com.projet_voiture.projet_voiture.service.AnnonceService;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/annonce")
+import java.util.List;
+
 @RestController
+@RequestMapping("/annonce")
 public class AnnonceController {
-
-    private final AnnonceService AnnonceService;
-
     @Autowired
-    public AnnonceController(AnnonceService AnnonceService) {
-        this.AnnonceService = AnnonceService;
+    private AnnonceService service;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Annonce insert(@RequestBody Annonce Annonce){
+        return service.insert(Annonce);
     }
 
     @GetMapping
-    public List<Document> findAll() {
-        return AnnonceService.findAll().into(new ArrayList<>());
+    public List<Annonce> findAll() {
+        return service.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<Annonce> insert( @RequestBody Annonce Annonce ) {
-        try {
-            Annonce inserted = AnnonceService.insert(Annonce);
-            return new ResponseEntity<>(inserted, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/{AnnonceId}")
+    public Annonce findById(@PathVariable String AnnonceId){
+        return service.findById(AnnonceId);
     }
 
-    @GetMapping("/{id}")
-    public Document findById(@PathVariable int id) {
-        return AnnonceService.findById(id);
+    @PutMapping
+    public Annonce updateAnnonce(@RequestBody Annonce Annonce){
+        return service.updateAnnonce(Annonce);
     }
 
-    @PutMapping("/{id}")
-    public void updateAnnonce(@PathVariable int id, @RequestBody Document updatedAnnonce) {
-        AnnonceService.updateAnnonce(id, updatedAnnonce);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteAnnonce(@PathVariable int id) {
-        AnnonceService.deleteAnnonce(id);
+    @DeleteMapping("/{AnnonceId}")
+    public String deleteAnnonce(@PathVariable String AnnonceId){
+        return service.deleteAnnonce(AnnonceId);
     }
 }

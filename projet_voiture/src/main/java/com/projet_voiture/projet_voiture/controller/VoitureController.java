@@ -1,55 +1,43 @@
 package com.projet_voiture.projet_voiture.controller;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import com.projet_voiture.projet_voiture.modele.Voiture;
 import com.projet_voiture.projet_voiture.service.VoitureService;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/voiture")
+import java.util.List;
+
 @RestController
+@RequestMapping("/voiture")
 public class VoitureController {
-
-    private final VoitureService VoitureService;
-
     @Autowired
-    public VoitureController(VoitureService VoitureService) {
-        this.VoitureService = VoitureService;
+    private VoitureService service;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Voiture insert(@RequestBody Voiture Voiture){
+        return service.insert(Voiture);
     }
 
     @GetMapping
-    public List<Document> findAll() {
-        return VoitureService.findAll().into(new ArrayList<>());
+    public List<Voiture> findAll() {
+        return service.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<Voiture> insert( @RequestBody Voiture Voiture ) {
-        try {
-            Voiture inserted = VoitureService.insert(Voiture);
-            return new ResponseEntity<>(inserted, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/{VoitureId}")
+    public Voiture findById(@PathVariable String VoitureId){
+        return service.findById(VoitureId);
     }
 
-    @GetMapping("/{id}")
-    public Document findById(@PathVariable int id) {
-        return VoitureService.findById(id);
+    @PutMapping
+    public Voiture updateVoiture(@RequestBody Voiture Voiture){
+        return service.updateVoiture(Voiture);
     }
 
-    @PutMapping("/{id}")
-    public void updateVoiture(@PathVariable int id, @RequestBody Document updatedVoiture) {
-        VoitureService.updateVoiture(id, updatedVoiture);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteVoiture(@PathVariable int id) {
-        VoitureService.deleteVoiture(id);
+    @DeleteMapping("/{VoitureId}")
+    public String deleteVoiture(@PathVariable String VoitureId){
+        return service.deleteVoiture(VoitureId);
     }
 }
