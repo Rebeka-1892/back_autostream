@@ -16,48 +16,48 @@ VALUES
 ('Océanie'), 
 ('Antarctique');
 
-INSERT INTO marque (nommarque, idcontinent) 
+INSERT INTO marque (nommarque, idcontinent, photo) 
 VALUES 
-('Acura', 2), -- Amérique du Nord
-('Aston Martin', 2), -- Amérique du Nord
-('Audi', 2), -- Amérique du Nord
-('Bentley', 2), -- Amérique du Nord
-('BMW', 2), -- Amérique du Nord
-('Buick', 2), -- Amérique du Nord
-('Cadillac', 2), -- Amérique du Nord
-('Chevrolet', 2), -- Amérique du Nord
-('Chrysler', 2), -- Amérique du Nord
-('Dodge', 2), -- Amérique du Nord
-('Ferrari', 2), -- Amérique du Nord
-('Fiat', 3), -- Europe
-('Ford', 2), -- Amérique du Nord
-('GMC', 2), -- Amérique du Nord
-('Honda', 2), -- Asie
-('Hyundai', 3), -- Asie
-('Infiniti', 2), -- Amérique du Nord
-('Jaguar', 3), -- Europe
-('Jeep', 2), -- Amérique du Nord
-('Kia', 3), -- Asie
-('Lamborghini', 3), -- Europe
-('Land Rover', 3), -- Europe
-('Lexus', 2), -- Amérique du Nord
-('Lincoln', 2), -- Amérique du Nord
-('Lotus', 3), -- Europe
-('Maserati', 3), -- Europe
-('Mazda', 3), -- Asie
-('Mercedes Benz', 3), -- Europe
-('Mini', 3), -- Europe
-('Mitsubishi', 3), -- Asie
-('Nissan', 3), -- Asie
-('Porsche', 3), -- Europe
-('Ram Trucks', 2), -- Amérique du Nord
-('Rolls Royce', 3), -- Europe
-('Smart', 3), -- Europe
-('Subaru', 3), -- Asie
-('Tesla', 2), -- Amérique du Nord
-('Toyota', 3), -- Asie
-('Volkswagen', 3), -- Europe
-('Volvo', 3); -- Europe
+('Acura', 2, 'zertyu'), -- Amérique du Nord
+('Aston Martin', 2, 'qsdfg'), -- Amérique du Nord
+('Audi', 2, 'qsdfg'), -- Amérique du Nord
+('Bentley', 2, 'qsdfg'), -- Amérique du Nord
+('BMW', 2, 'qsdfg'), -- Amérique du Nord
+('Buick', 2, 'qsdfg'), -- Amérique du Nord
+('Cadillac', 2, 'qsdfg'), -- Amérique du Nord
+('Chevrolet', 2, 'qsdfg'), -- Amérique du Nord
+('Chrysler', 2, 'qsdfg'), -- Amérique du Nord
+('Dodge', 2, 'qsdfg'), -- Amérique du Nord
+('Ferrari', 2, 'qsdfg'), -- Amérique du Nord
+('Fiat', 3, 'qsdfg'), -- Europe
+('Ford', 2, 'qsdfg'), -- Amérique du Nord
+('GMC', 2, 'qsdfg'), -- Amérique du Nord
+('Honda', 2, 'qsdfg'), -- Asie
+('Hyundai', 3, 'qsdfg'), -- Asie
+('Infiniti', 2, 'qsdfg'), -- Amérique du Nord
+('Jaguar', 3, 'qsdfg'), -- Europe
+('Jeep', 2, 'qsdfg'), -- Amérique du Nord
+('Kia', 3, 'qsdfg'), -- Asie
+('Lamborghini', 3, 'qsdfg'), -- Europe
+('Land Rover', 3, 'qsdfg'), -- Europe
+('Lexus', 2, 'qsdfg'), -- Amérique du Nord
+('Lincoln', 2, 'qsdfg'), -- Amérique du Nord
+('Lotus', 3, 'qsdfg'), -- Europe
+('Maserati', 3, 'qsdfg'), -- Europe
+('Mazda', 3, 'qsdfg'), -- Asie
+('Mercedes Benz', 3, 'qsdfg'), -- Europe
+('Mini', 3, 'qsdfg'), -- Europe
+('Mitsubishi', 3, 'qsdfg'), -- Asie
+('Nissan', 3, 'qsdfg'), -- Asie
+('Porsche', 3, 'qsdfg'), -- Europe
+('Ram Trucks', 2, 'qsdfg'), -- Amérique du Nord
+('Rolls Royce', 3, 'qsdfg'), -- Europe
+('Smart', 3, 'qsdfg'), -- Europe
+('Subaru', 3, 'qsdfg'), -- Asie
+('Tesla', 2, 'qsdfg'), -- Amérique du Nord
+('Toyota', 3, 'qsdfg'), -- Asie
+('Volkswagen', 3, 'qsdfg'), -- Europe
+('Volvo', 3, 'qsdfg'); -- Europe
 
 INSERT INTO energie (nomenergie) 
 VALUES 
