@@ -5,35 +5,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Carrosserie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcarrosserie;
     String nomcarrosserie;
-
-    public Carrosserie(String nomcarrosserie) {
-        this.nomcarrosserie = nomcarrosserie;
-    }
-
-    public Carrosserie(int idcarrosserie, String nomcarrosserie) {
-        this.idcarrosserie = idcarrosserie;
-        this.nomcarrosserie = nomcarrosserie;
-    }
-
-    public Carrosserie() {
-    }
-    
-    public int getIdcarrosserie() {
-        return idcarrosserie;
-    }
-    public void setIdcarrosserie(int idcarrosserie) {
-        this.idcarrosserie = idcarrosserie;
-    }
-    public String getNomcarrosserie() {
-        return nomcarrosserie;
-    }
-    public void setNomcarrosserie(String nomcarrosserie) {
-        this.nomcarrosserie = nomcarrosserie;
-    }
 }

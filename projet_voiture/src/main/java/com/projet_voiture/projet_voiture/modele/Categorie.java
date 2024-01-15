@@ -5,30 +5,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcategorie;
     String nomcategorie;
-
-    public Categorie(String nomcategorie) {
-        this.nomcategorie = nomcategorie;
-    }
-
-    public Categorie() {
-    }
-
-    public int getIdcategorie() {
-        return idcategorie;
-    }
-    public void setIdcategorie(int idcategorie) {
-        this.idcategorie = idcategorie;
-    }
-    public String getNomcategorie() {
-        return nomcategorie;
-    }
-    public void setNomcategorie(String nomcategorie) {
-        this.nomcategorie = nomcategorie;
-    }    
 }
