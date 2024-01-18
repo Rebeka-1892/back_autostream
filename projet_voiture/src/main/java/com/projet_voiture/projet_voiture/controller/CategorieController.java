@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Categorie;
 import com.projet_voiture.projet_voiture.service.CategorieService;
@@ -34,7 +35,8 @@ public class CategorieController {
         return service.findById(id);
     }
     
-    @PostMapping
+    @Transactional
+@PostMapping
     public ResponseEntity<Categorie> insert( @RequestBody Categorie Categorie ) {
         try {
             Categorie inserted = service.insert(Categorie);

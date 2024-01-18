@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Marque;
 import com.projet_voiture.projet_voiture.modele.Modele;
@@ -31,7 +32,7 @@ public class ModeleController {
     }
 
     @GetMapping("/m/{marque}")
-    public List<Modele> findByMarque(@PathVariable Marque marque){
+    public List<Modele> findByMarque(@PathVariable Marque marque) {
         return service.findByMarque(marque);
     }
 
@@ -39,9 +40,10 @@ public class ModeleController {
     public Optional<Modele> findById(@PathVariable("id") int id) {
         return service.findById(id);
     }
-    
+
+    @Transactional
     @PostMapping
-    public ResponseEntity<Modele> insert( @RequestBody Modele Modele ) {
+    public ResponseEntity<Modele> insert(@RequestBody Modele Modele) {
         try {
             Modele inserted = service.insert(Modele);
             return new ResponseEntity<>(inserted, HttpStatus.CREATED);
@@ -51,11 +53,11 @@ public class ModeleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Modele> update( @PathVariable("id") int id, @RequestBody Modele Modele ) {
+    public ResponseEntity<Modele> update(@PathVariable("id") int id, @RequestBody Modele Modele) {
         Optional<Modele> to_update = service.findById(id);
         if (to_update.isPresent()) {
             Modele updated = to_update.get();
-            updated.setNommodele(Modele.getNommodele());          
+            updated.setNommodele(Modele.getNommodele());
             updated.setPoids(Modele.getPoids());
             updated.setLongueur(Modele.getLongueur());
             updated.setLargeur(Modele.getLargeur());
@@ -65,9 +67,8 @@ public class ModeleController {
             updated.setCategorie(Modele.getCategorie());
             updated.setMarque(Modele.getMarque());
             return new ResponseEntity<Modele>(
-                service.insert(updated),
-                HttpStatus.OK
-            );
+                    service.insert(updated),
+                    HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }

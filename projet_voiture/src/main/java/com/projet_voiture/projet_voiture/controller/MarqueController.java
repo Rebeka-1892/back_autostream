@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Marque;
 import com.projet_voiture.projet_voiture.service.MarqueService;
@@ -33,9 +34,10 @@ public class MarqueController {
     public Optional<Marque> findById(@PathVariable("id") int id) {
         return service.findById(id);
     }
-    
+
+    @Transactional
     @PostMapping
-    public ResponseEntity<Marque> insert( @RequestBody Marque Marque ) {
+    public ResponseEntity<Marque> insert(@RequestBody Marque Marque) {
         try {
             Marque inserted = service.insert(Marque);
             return new ResponseEntity<>(inserted, HttpStatus.CREATED);
@@ -45,16 +47,15 @@ public class MarqueController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Marque> update( @PathVariable("id") int id, @RequestBody Marque Marque ) {
+    public ResponseEntity<Marque> update(@PathVariable("id") int id, @RequestBody Marque Marque) {
         Optional<Marque> to_update = service.findById(id);
         if (to_update.isPresent()) {
             Marque updated = to_update.get();
-            updated.setNommarque(Marque.getNommarque());    
-            updated.setContinent(Marque.getContinent());      
+            updated.setNommarque(Marque.getNommarque());
+            updated.setContinent(Marque.getContinent());
             return new ResponseEntity<Marque>(
-                service.insert(updated),
-                HttpStatus.OK
-            );
+                    service.insert(updated),
+                    HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }

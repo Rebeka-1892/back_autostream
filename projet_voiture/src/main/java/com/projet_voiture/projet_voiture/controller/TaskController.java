@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Task;
 import com.projet_voiture.projet_voiture.service.TaskService;
@@ -22,9 +23,10 @@ public class TaskController {
     @Autowired
     private TaskService service;
 
+    @Transactional
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Task createTask(@RequestBody Task task){
+    public Task createTask(@RequestBody Task task) {
         return service.addTask(task);
     }
 
@@ -33,29 +35,28 @@ public class TaskController {
         return service.findAllTasks();
     }
 
-
     @GetMapping("/{taskId}")
-    public Task getTask(@PathVariable String taskId){
+    public Task getTask(@PathVariable String taskId) {
         return service.getTaskByTaskId(taskId);
     }
 
     @GetMapping("/severity/{severity}")
-    public List<Task> findTaskUsingSeverity(@PathVariable int severity){
+    public List<Task> findTaskUsingSeverity(@PathVariable int severity) {
         return service.getTaskBySeverity(severity);
     }
 
     @GetMapping("/assignee/{assignee}")
-    public List<Task> getTaskByAssignee(@PathVariable String assignee){
+    public List<Task> getTaskByAssignee(@PathVariable String assignee) {
         return service.getTaskByAssignee(assignee);
     }
 
     @PutMapping
-    public Task modifyTask(@RequestBody Task task){
+    public Task modifyTask(@RequestBody Task task) {
         return service.updateTask(task);
     }
 
     @DeleteMapping("/{taskId}")
-    public String deleteTask(@PathVariable String taskId){
+    public String deleteTask(@PathVariable String taskId) {
         return service.deleteTask(taskId);
     }
 }

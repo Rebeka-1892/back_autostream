@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Energie;
 import com.projet_voiture.projet_voiture.service.EnergieService;
@@ -33,9 +34,10 @@ public class EnergieController {
     public Optional<Energie> findById(@PathVariable("id") int id) {
         return service.findById(id);
     }
-    
+
+    @Transactional
     @PostMapping
-    public ResponseEntity<Energie> insert( @RequestBody Energie Energie ) {
+    public ResponseEntity<Energie> insert(@RequestBody Energie Energie) {
         try {
             Energie inserted = service.insert(Energie);
             return new ResponseEntity<>(inserted, HttpStatus.CREATED);
@@ -45,15 +47,14 @@ public class EnergieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Energie> update( @PathVariable("id") int id, @RequestBody Energie Energie ) {
+    public ResponseEntity<Energie> update(@PathVariable("id") int id, @RequestBody Energie Energie) {
         Optional<Energie> to_update = service.findById(id);
         if (to_update.isPresent()) {
             Energie updated = to_update.get();
-            updated.setNomenergie(Energie.getNomenergie());            
+            updated.setNomenergie(Energie.getNomenergie());
             return new ResponseEntity<Energie>(
-                service.insert(updated),
-                HttpStatus.OK
-            );
+                    service.insert(updated),
+                    HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
