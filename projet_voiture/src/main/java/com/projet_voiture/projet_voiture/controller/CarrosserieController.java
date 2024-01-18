@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.transaction.annotation.Transactional;
 import com.projet_voiture.projet_voiture.modele.Carrosserie;
 import com.projet_voiture.projet_voiture.service.CarrosserieService;
 
@@ -33,9 +34,10 @@ public class CarrosserieController {
     public Optional<Carrosserie> findById(@PathVariable("id") int id) {
         return service.findById(id);
     }
-    
+
+    @Transactional
     @PostMapping
-    public ResponseEntity<Carrosserie> insert( @RequestBody Carrosserie Carrosserie ) {
+    public ResponseEntity<Carrosserie> insert(@RequestBody Carrosserie Carrosserie) {
         try {
             Carrosserie inserted = service.insert(Carrosserie);
             return new ResponseEntity<>(inserted, HttpStatus.CREATED);
@@ -45,15 +47,14 @@ public class CarrosserieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Carrosserie> update( @PathVariable("id") int id, @RequestBody Carrosserie Carrosserie ) {
+    public ResponseEntity<Carrosserie> update(@PathVariable("id") int id, @RequestBody Carrosserie Carrosserie) {
         Optional<Carrosserie> to_update = service.findById(id);
         if (to_update.isPresent()) {
             Carrosserie updated = to_update.get();
-            updated.setNomcarrosserie(Carrosserie.getNomcarrosserie());            
+            updated.setNomcarrosserie(Carrosserie.getNomcarrosserie());
             return new ResponseEntity<Carrosserie>(
-                service.insert(updated),
-                HttpStatus.OK
-            );
+                    service.insert(updated),
+                    HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }

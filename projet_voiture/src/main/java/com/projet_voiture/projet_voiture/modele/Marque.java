@@ -23,5 +23,5 @@ public class Marque {
     @ManyToOne
     @JoinColumn(name = "idcontinent")
     Continent continent;
-    Byte photo;
+    byte[] photo;
 }

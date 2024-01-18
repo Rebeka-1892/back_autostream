@@ -41,3 +41,11 @@ db.annonce.insertOne(
 db.validation.insertOne(
     { "idvalidation" : 1, "etat" : 1, "datemodif" : "2023-12-31", "idannonce" : 1 }
 )
+
+db.message.insertOne(
+    { "idmessage" : auto, "description" : VARCHAR, "idsend" : idutilisateur, "idreceive" : idutilisateur, "dateheure" : timestamp}
+)
+
+db.favori.insertOne(
+    { "idfavori" : auto, "idannonce" : idannonce, "idutilisateur" : idutilisateur}
+)

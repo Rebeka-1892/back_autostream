@@ -2,6 +2,7 @@ package com.projet_voiture.projet_voiture.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Validation;
 import com.projet_voiture.projet_voiture.service.ValidationService;
@@ -15,9 +16,10 @@ public class ValidationController {
     @Autowired
     private ValidationService service;
 
+    @Transactional
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Validation insert(@RequestBody Validation Validation){
+    public Validation insert(@RequestBody Validation Validation) {
         return service.insert(Validation);
     }
 
@@ -27,17 +29,17 @@ public class ValidationController {
     }
 
     @GetMapping("/{ValidationId}")
-    public Validation findById(@PathVariable String ValidationId){
+    public Validation findById(@PathVariable String ValidationId) {
         return service.findById(ValidationId);
     }
 
     @PutMapping
-    public Validation updateValidation(@RequestBody Validation Validation){
+    public Validation updateValidation(@RequestBody Validation Validation) {
         return service.updateValidation(Validation);
     }
 
     @DeleteMapping("/{ValidationId}")
-    public String deleteValidation(@PathVariable String ValidationId){
+    public String deleteValidation(@PathVariable String ValidationId) {
         return service.deleteValidation(ValidationId);
     }
 }

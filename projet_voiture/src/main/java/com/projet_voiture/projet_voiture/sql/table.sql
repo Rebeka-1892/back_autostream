@@ -16,7 +16,7 @@ CREATE TABLE marque(
  idmarque SERIAL PRIMARY KEY,
  nommarque VARCHAR(50),
  idcontinent INT NOT NULL,
- photo VARCHAR(250),
+ photo bytea,
  FOREIGN KEY(idcontinent) REFERENCES continent(idcontinent)
 );
 

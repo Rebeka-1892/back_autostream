@@ -2,6 +2,7 @@ package com.projet_voiture.projet_voiture.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Voiture;
 import com.projet_voiture.projet_voiture.service.VoitureService;
@@ -15,9 +16,10 @@ public class VoitureController {
     @Autowired
     private VoitureService service;
 
+    @Transactional
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Voiture insert(@RequestBody Voiture Voiture){
+    public Voiture insert(@RequestBody Voiture Voiture) {
         return service.insert(Voiture);
     }
 
@@ -27,17 +29,17 @@ public class VoitureController {
     }
 
     @GetMapping("/{VoitureId}")
-    public Voiture findById(@PathVariable String VoitureId){
+    public Voiture findById(@PathVariable String VoitureId) {
         return service.findById(VoitureId);
     }
 
     @PutMapping
-    public Voiture updateVoiture(@RequestBody Voiture Voiture){
+    public Voiture updateVoiture(@RequestBody Voiture Voiture) {
         return service.updateVoiture(Voiture);
     }
 
     @DeleteMapping("/{VoitureId}")
-    public String deleteVoiture(@PathVariable String VoitureId){
+    public String deleteVoiture(@PathVariable String VoitureId) {
         return service.deleteVoiture(VoitureId);
     }
 }

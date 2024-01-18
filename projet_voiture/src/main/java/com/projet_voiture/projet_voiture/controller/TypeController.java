@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Type;
 import com.projet_voiture.projet_voiture.service.TypeService;
@@ -33,9 +34,10 @@ public class TypeController {
     public Optional<Type> findById(@PathVariable("id") int id) {
         return service.findById(id);
     }
-    
+
+    @Transactional
     @PostMapping
-    public ResponseEntity<Type> insert( @RequestBody Type Type ) {
+    public ResponseEntity<Type> insert(@RequestBody Type Type) {
         try {
             Type inserted = service.insert(Type);
             return new ResponseEntity<>(inserted, HttpStatus.CREATED);
@@ -45,15 +47,14 @@ public class TypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Type> update( @PathVariable("id") int id, @RequestBody Type Type ) {
+    public ResponseEntity<Type> update(@PathVariable("id") int id, @RequestBody Type Type) {
         Optional<Type> to_update = service.findById(id);
         if (to_update.isPresent()) {
             Type updated = to_update.get();
-            updated.setNomtype( Type.getNomtype() );            
+            updated.setNomtype(Type.getNomtype());
             return new ResponseEntity<Type>(
-                service.insert(updated),
-                HttpStatus.OK
-            );
+                    service.insert(updated),
+                    HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
