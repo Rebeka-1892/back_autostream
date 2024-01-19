@@ -7,12 +7,27 @@ import com.projet_voiture.projet_voiture.modele.Utilisateur;
 import com.projet_voiture.projet_voiture.repository.UtilisateurRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class UtilisateurService {
     @Autowired
     private UtilisateurRepository repository;
+
+    public Optional<Utilisateur> findByNameAndPassword(Utilisateur utilisateur) {
+        System.out.println("tafididtra");
+
+        Optional<Utilisateur> user = repository.findByEmailAndMdp(
+            utilisateur.getEmail(),
+            utilisateur.getMdp()
+        );
+        System.out.println(user);
+        if (user.isPresent()) {
+            System.out.println(user.get());
+        }
+        return user;
+    }
 
     public Utilisateur insert(Utilisateur Utilisateur) {
         Utilisateur.setIdutilisateur(UUID.randomUUID().toString().split("-")[0]);
@@ -30,7 +45,7 @@ public class UtilisateurService {
     public Utilisateur updateUtilisateur(Utilisateur UtilisateurRequest){
         Utilisateur existingUtilisateur = repository.findById(UtilisateurRequest.getIdutilisateur()).get();
         existingUtilisateur.setEmail(UtilisateurRequest.getEmail());
-        existingUtilisateur.setIsadmin(UtilisateurRequest.getIsadmin());
+        existingUtilisateur.setRole(UtilisateurRequest.getRole());
         existingUtilisateur.setNomutilisateur(UtilisateurRequest.getNomutilisateur());
         existingUtilisateur.setMdp(UtilisateurRequest.getMdp());
         return repository.save(existingUtilisateur);

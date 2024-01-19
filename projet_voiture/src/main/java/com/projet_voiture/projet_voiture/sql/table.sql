@@ -65,3 +65,10 @@ CREATE TABLE modele(
  FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie),
  FOREIGN KEY(idmarque) REFERENCES marque(idmarque)
 );
+
+create table utilisateur(
+    idUtilisateur serial primary key,
+    login varchar,
+    motdepasse varchar,
+    role varchar
+);

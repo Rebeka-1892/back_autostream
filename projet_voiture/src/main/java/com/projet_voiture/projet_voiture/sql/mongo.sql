@@ -30,8 +30,8 @@ db.voitureoptions.insertOne(
 )
 
 db.utilisateur.insertMany([
-    { "idutilisateur" : "USR001", "nomutilisateur" : "Rakoto", "email" : "rakoto@gmail.com", "mdp" : "1234", "isadmin" : 1},
-    { "idutilisateur" : "USR002", "nomutilisateur" : "Rasoa", "email" : "rasoa@gmail.com", "mdp" : "1234", "isadmin" : 0}
+    { "idutilisateur" : "USR001", "nomutilisateur" : "Rakoto", "email" : "rakoto@gmail.com", "mdp" : "1234", "role" : "admin"},
+    { "idutilisateur" : "USR002", "nomutilisateur" : "Rasoa", "email" : "rasoa@gmail.com", "mdp" : "1234", "role" : "user"}
 ])
 
 db.annonce.insertOne(
