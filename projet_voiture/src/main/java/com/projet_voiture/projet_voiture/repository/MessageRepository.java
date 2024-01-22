@@ -1,9 +1,11 @@
 package com.projet_voiture.projet_voiture.repository;
 
+import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.projet_voiture.projet_voiture.modele.Message;
+import com.projet.voiture_occasion.modele.Message;
 // import org.springframework.data.mongodb.repository.Query;
 
 public interface MessageRepository extends MongoRepository<Message, String>{
-    // message par les utilsateurs where idsender et idreceiver group by idsender et receiver
+    
+    List<Message> findAllByIdsendInAndIdreceiveInOrderByDateheureAsc(List<String> senders, List<String> receivers);
 }

@@ -2,8 +2,10 @@ package com.projet_voiture.projet_voiture.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
+import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
 import com.projet_voiture.projet_voiture.repository.AnnonceRepository;
 
 import java.util.List;
@@ -14,9 +16,30 @@ public class AnnonceService {
     @Autowired
     private AnnonceRepository repository;
 
+    @Autowired
+    private HistoriqueAnnonceService historiqueAnnonceService;
+
     public Annonce insert(Annonce Annonce) {
         Annonce.setIdannonce(UUID.randomUUID().toString().split("-")[0]);
         return repository.save(Annonce);
+    }
+
+    @Transactional
+    public Annonce modifAnnonce(Annonce annonce)
+    {
+        Annonce annonceTemp = findById(annonce.getIdannonce());
+
+        HistoriqueAnnonce historiqueAnnonce = new HistoriqueAnnonce();
+        historiqueAnnonce.setIdAnnonce(annonceTemp.getIdannonce());
+        historiqueAnnonce.setDescri(annonceTemp.getDescri());
+        historiqueAnnonce.setPrix(annonceTemp.getPrix());
+        historiqueAnnonce.setDatepub(annonceTemp.getDatepub());
+        historiqueAnnonce.setIdVoiture(annonceTemp.getIdvoiture());
+        historiqueAnnonce.setIdUtilisateur(annonceTemp.getIdutilisateur());
+
+        historiqueAnnonceService.insertHistoriqueAnnonce(historiqueAnnonce);
+
+        return repository.save(annonce);
     }
 
     public List<Annonce> findAll() {

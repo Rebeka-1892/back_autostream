@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.projet_voiture.projet_voiture.modele.Message;
 import com.projet_voiture.projet_voiture.repository.MessageRepository;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -30,5 +32,16 @@ public class MessageService {
     public String deleteMessage(String MessageId){
         repository.deleteById(MessageId);
         return MessageId+" Message deleted from dashboard ";
+    }
+
+    public Set<Message> findByIdSendAndIdReceive(String user1Id, String user2Id)
+    {
+        List<String> users = List.of(user1Id, user2Id);
+
+        List<Message> messagesList = repository.findAllByIdsendInAndIdreceiveInOrderByDateheureAsc(users, users);
+
+        Set<Message> messagesSet = new LinkedHashSet<>(messagesList);
+
+        return messagesSet;
     }
 }

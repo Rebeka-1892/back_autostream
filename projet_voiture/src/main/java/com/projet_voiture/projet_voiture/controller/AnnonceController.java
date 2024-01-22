@@ -2,10 +2,14 @@ package com.projet_voiture.projet_voiture.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
+import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
 import com.projet_voiture.projet_voiture.service.AnnonceService;
+import com.projet_voiture.projet_voiture.service.HistoriqueAnnonceService;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +19,9 @@ import java.util.List;
 public class AnnonceController {
     @Autowired
     private AnnonceService service;
+
+    @Autowired
+    private HistoriqueAnnonceService historiqueAnnonceService;
 
     @Transactional
     @PostMapping
@@ -41,5 +48,18 @@ public class AnnonceController {
     @DeleteMapping("/{AnnonceId}")
     public String deleteAnnonce(@PathVariable String AnnonceId) {
         return service.deleteAnnonce(AnnonceId);
+    }
+
+    @PostMapping("/modifAnnonce")
+    public ResponseEntity<Annonce> updateAnnonceHistorique(@RequestBody Annonce annonce)
+    {
+        Annonce a = service.modifAnnonce(annonce);
+        return ResponseEntity.ok().body(a);
+    }
+
+    @GetMapping("/histo/{idAnnonce}")
+    public List<HistoriqueAnnonce> getHistoriqueAnnonceByIdAnnonce(@PathVariable String idAnnonce)
+    {
+        return historiqueAnnonceService.getAllHistoAnnonceByIdAnnonce(idAnnonce);
     }
 }
