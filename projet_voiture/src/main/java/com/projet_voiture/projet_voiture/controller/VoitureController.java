@@ -2,7 +2,7 @@ package com.projet_voiture.projet_voiture.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Voiture;
 import com.projet_voiture.projet_voiture.service.VoitureService;
@@ -16,7 +16,7 @@ public class VoitureController {
     @Autowired
     private VoitureService service;
 
-    @Transactional
+     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Voiture insert(@RequestBody Voiture Voiture) {

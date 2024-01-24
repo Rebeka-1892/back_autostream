@@ -3,7 +3,7 @@ package com.projet_voiture.projet_voiture.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
 import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
@@ -23,7 +23,11 @@ public class AnnonceController {
     @Autowired
     private HistoriqueAnnonceService historiqueAnnonceService;
 
-    @Transactional
+    @GetMapping("/unvalid/")
+    public List<Annonce> getUnvalidatedAnnonces() {
+        return service.getUnvalidatedAnnonces();
+    }
+     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Annonce insert(@RequestBody Annonce Annonce) {

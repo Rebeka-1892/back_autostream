@@ -14,6 +14,14 @@ public class ValidationService {
     @Autowired
     private ValidationRepository repository;
 
+    public List<String> getAllValidationIds() {
+        return repository.findAllValidationIds();
+    }
+
+    public List<Validation> findByEtat(int etat){
+        return repository.findByEtat(etat);
+    }
+
     public Validation insert(Validation Validation) {
         Validation.setIdvalidation(UUID.randomUUID().toString().split("-")[0]);
         return repository.save(Validation);

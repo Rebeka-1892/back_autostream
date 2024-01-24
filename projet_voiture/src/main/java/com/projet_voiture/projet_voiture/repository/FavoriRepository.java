@@ -6,4 +6,6 @@ import com.projet_voiture.projet_voiture.modele.Favori;
 
 public interface FavoriRepository extends MongoRepository<Favori, String>{
     // get favoris by idutilisateur
+    
+    void deleteByIdannonceAndIdutilisateur(String idannonce, String idutilisateur);
 }

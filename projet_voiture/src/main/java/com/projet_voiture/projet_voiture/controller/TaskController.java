@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Task;
 import com.projet_voiture.projet_voiture.service.TaskService;
@@ -23,7 +23,7 @@ public class TaskController {
     @Autowired
     private TaskService service;
 
-    @Transactional
+     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Task createTask(@RequestBody Task task) {

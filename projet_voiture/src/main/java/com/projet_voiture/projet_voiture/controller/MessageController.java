@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Message;
 import com.projet_voiture.projet_voiture.service.MessageService;
@@ -20,7 +20,7 @@ public class MessageController {
     @Autowired
     private MessageService service;
 
-    @Transactional
+     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Message insert(@RequestBody Message message) {

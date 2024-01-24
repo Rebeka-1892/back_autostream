@@ -2,7 +2,7 @@ package com.projet_voiture.projet_voiture.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Favori;
 import com.projet_voiture.projet_voiture.service.FavoriService;
@@ -16,7 +16,7 @@ public class FavoriController {
     @Autowired
     private FavoriService service;
 
-    @Transactional
+     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Favori insert(@RequestBody Favori Favori) {
@@ -36,5 +36,10 @@ public class FavoriController {
     @DeleteMapping("/{FavoriId}")
     public String deleteFavori(@PathVariable String FavoriId) {
         return service.deleteFavori(FavoriId);
+    }
+
+    @DeleteMapping("/favori/{idannonce}/{idutilisateur}")
+    public void deleteFavoriByIds(@PathVariable String idannonce, @PathVariable String idutilisateur) {
+        service.deleteFavoriByIdannonceAndIdutilisateur(idannonce, idutilisateur);
     }
 }

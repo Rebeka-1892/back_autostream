@@ -18,6 +18,6 @@ public class Annonce {
     String descri;
     double prix;
     LocalDateTime datepub;
-    int idvoiture;
-    int idutilisateur;    
+    String idvoiture;
+    String idutilisateur;    
 }

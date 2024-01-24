@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.auth.AuthenticationRequest;
 import com.projet_voiture.projet_voiture.auth.RegisterRequest;
@@ -52,7 +52,7 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService service;
 
-    @Transactional
+     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Utilisateur insert(@RequestBody Utilisateur Utilisateur) {

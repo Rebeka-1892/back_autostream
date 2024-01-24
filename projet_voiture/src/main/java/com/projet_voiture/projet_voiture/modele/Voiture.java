@@ -27,4 +27,5 @@ public class Voiture {
     int iddrivetype;
     int idtransmission;
     int idenergie;
+    String[] photos;
 }

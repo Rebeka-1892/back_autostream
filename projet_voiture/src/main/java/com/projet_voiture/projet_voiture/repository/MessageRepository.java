@@ -2,7 +2,7 @@ package com.projet_voiture.projet_voiture.repository;
 
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.projet.voiture_occasion.modele.Message;
+import com.projet_voiture.projet_voiture.modele.Message;
 // import org.springframework.data.mongodb.repository.Query;
 
 public interface MessageRepository extends MongoRepository<Message, String>{

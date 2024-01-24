@@ -2,11 +2,12 @@ package com.projet_voiture.projet_voiture.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
 import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
 import com.projet_voiture.projet_voiture.repository.AnnonceRepository;
+import com.projet_voiture.projet_voiture.repository.ValidationRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +18,9 @@ public class AnnonceService {
     private AnnonceRepository repository;
 
     @Autowired
+    private ValidationService validationService;
+
+    @Autowired
     private HistoriqueAnnonceService historiqueAnnonceService;
 
     public Annonce insert(Annonce Annonce) {
@@ -24,7 +28,10 @@ public class AnnonceService {
         return repository.save(Annonce);
     }
 
-    @Transactional
+    public List<Annonce> getUnvalidatedAnnonces() {
+        return repository.findUnvalidatedAnnonces(validationService.getAllValidationIds());
+    }
+     
     public Annonce modifAnnonce(Annonce annonce)
     {
         Annonce annonceTemp = findById(annonce.getIdannonce());

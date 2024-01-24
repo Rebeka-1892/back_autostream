@@ -17,5 +17,5 @@ public class Validation {
     String idvalidation;
     int etat;
     LocalDateTime datemodif;
-    int idannonce;
+    String idannonce;
 }

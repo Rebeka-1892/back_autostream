@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import com.projet_voiture.projet_voiture.modele.Type;
 import com.projet_voiture.projet_voiture.service.TypeService;
@@ -35,7 +35,7 @@ public class TypeController {
         return service.findById(id);
     }
 
-    @Transactional
+     
     @PostMapping
     public ResponseEntity<Type> insert(@RequestBody Type Type) {
         try {
