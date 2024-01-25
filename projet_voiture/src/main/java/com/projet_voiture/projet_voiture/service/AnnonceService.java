@@ -2,12 +2,10 @@ package com.projet_voiture.projet_voiture.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
- 
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
 import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
 import com.projet_voiture.projet_voiture.repository.AnnonceRepository;
-import com.projet_voiture.projet_voiture.repository.ValidationRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +27,7 @@ public class AnnonceService {
     }
 
     public List<Annonce> getUnvalidatedAnnonces() {
-        return repository.findUnvalidatedAnnonces(validationService.getAllValidationIds());
+        return repository.findAllByIdannonceNotIn(validationService.getAllValidationIds());
     }
      
     public Annonce modifAnnonce(Annonce annonce)

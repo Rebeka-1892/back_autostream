@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+
 @RestController
 @RequestMapping("/validation")
 public class ValidationController {
@@ -20,8 +21,7 @@ public class ValidationController {
     @GetMapping("/list")
     public List<String> findAllValidationIds() {
         return service.getAllValidationIds();
-    }
-    
+    }       
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

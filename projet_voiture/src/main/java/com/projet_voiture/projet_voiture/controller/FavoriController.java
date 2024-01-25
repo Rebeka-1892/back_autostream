@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/Favori")
 public class FavoriController {
     @Autowired
     private FavoriService service;
 
+    @GetMapping("/favori")
+    public List<Favori> getListeFavoris(String idutilisateur) {
+        return service.getFavorisByIdutilisateur(idutilisateur);
+    }
      
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

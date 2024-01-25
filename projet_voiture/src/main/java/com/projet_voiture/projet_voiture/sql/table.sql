@@ -72,3 +72,17 @@ create table utilisateur(
     motdepasse varchar,
     role varchar
 );
+
+create table commission(
+    idcommission serial primary key,
+    valeur real,
+    date date
+);
+
+create table tresorerie(
+    idtresorerie serial primary key,
+    idannonce varchar,
+    entre real,
+    sortie real,
+    datemouvement timestamp
+);

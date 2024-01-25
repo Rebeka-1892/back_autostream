@@ -14,6 +14,10 @@ public class FavoriService {
     @Autowired
     private FavoriRepository repository;
 
+    public List<Favori> getFavorisByIdutilisateur(String idutilisateur) {
+        return repository.findByIdutilisateur(idutilisateur);
+    }
+
     public String deleteFavoriByIdannonceAndIdutilisateur(String idannonce, String idutilisateur) {
         repository.deleteByIdannonceAndIdutilisateur(idannonce, idutilisateur);        
         return " Deleted from Favori ";

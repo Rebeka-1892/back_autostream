@@ -8,14 +8,15 @@ import com.projet_voiture.projet_voiture.repository.ValidationRepository;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ValidationService {
     @Autowired
-    private ValidationRepository repository;
+    private ValidationRepository repository;   
 
     public List<String> getAllValidationIds() {
-        return repository.findAllValidationIds();
+        return repository.findAll().stream().map(Validation::getIdannonce).collect(Collectors.toList());
     }
 
     public List<Validation> findByEtat(int etat){
