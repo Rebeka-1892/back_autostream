@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/Favori")
+@RequestMapping("/favori")
 public class FavoriController {
     @Autowired
     private FavoriService service;
