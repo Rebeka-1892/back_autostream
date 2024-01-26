@@ -3,8 +3,8 @@ package com.projet_voiture.projet_voiture.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
- 
 
+import com.projet.voiture_occasion.service.FavoriService;
 import com.projet_voiture.projet_voiture.modele.Annonce;
 import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
 import com.projet_voiture.projet_voiture.service.AnnonceService;
@@ -24,6 +24,10 @@ public class AnnonceController {
     @Autowired
     private HistoriqueAnnonceService historiqueAnnonceService;
 
+    @Autowired
+    private FavoriService favoriService;
+
+    
     @GetMapping("/unvalid")
     public List<Annonce> getUnvalidatedAnnonces() throws IOException {
         return service.getUnvalidatedAnnonces();
@@ -66,5 +70,11 @@ public class AnnonceController {
     public List<HistoriqueAnnonce> getHistoriqueAnnonceByIdAnnonce(@PathVariable String idAnnonce)
     {
         return historiqueAnnonceService.getAllHistoAnnonceByIdAnnonce(idAnnonce);
+    }
+
+    @GetMapping("/favori/{idUtilisateur}")
+    public List<Annonce> getAnnonceFavoriByUtilisateur(@PathVariable String idUtilisateur)
+    {
+        return favoriService.getAnnonceFavoriByIdUtilisateur(idUtilisateur);
     }
 }

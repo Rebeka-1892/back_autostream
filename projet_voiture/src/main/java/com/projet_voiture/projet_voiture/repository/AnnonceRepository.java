@@ -8,4 +8,5 @@ public interface AnnonceRepository extends MongoRepository<Annonce, String>{
 
     List<Annonce> findAllByIdannonceNotIn(List<String> allValidationIds);
 
+    public List<Annonce> findByIdannonceIn(List<String> idAnnonces);
 }

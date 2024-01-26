@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.projet_voiture.projet_voiture.auth.AuthenticationRequest;
 import com.projet_voiture.projet_voiture.auth.RegisterRequest;
+import com.projet_voiture.projet_voiture.modele.InscriptionParMois;
 import com.projet_voiture.projet_voiture.modele.Utilisateur;
 import com.projet_voiture.projet_voiture.service.UtilisateurService;
 import com.projet_voiture.projet_voiture.services.AuthenticationService;
@@ -77,5 +78,11 @@ public class UtilisateurController {
     @DeleteMapping("/{UtilisateurId}")
     public String deleteUtilisateur(@PathVariable String UtilisateurId) {
         return service.deleteUtilisateur(UtilisateurId);
+    }
+
+    @GetMapping("/nbInscriptMois")
+    public List<InscriptionParMois> getInscritParMois()
+    {
+        return service.getAllInscriptParMois();
     }
 }

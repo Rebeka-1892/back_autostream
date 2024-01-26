@@ -3,6 +3,7 @@ package com.projet_voiture.projet_voiture.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projet_voiture.projet_voiture.modele.InscriptionParMois;
 import com.projet_voiture.projet_voiture.modele.Utilisateur;
 import com.projet_voiture.projet_voiture.repository.UtilisateurRepository;
 
@@ -14,6 +15,9 @@ import java.util.UUID;
 public class UtilisateurService {
     @Autowired
     private UtilisateurRepository repository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public Optional<Utilisateur> findByNameAndPassword(Utilisateur utilisateur) {
         System.out.println("tafididtra");
@@ -54,5 +58,24 @@ public class UtilisateurService {
     public String deleteUtilisateur(String UtilisateurId){
         repository.deleteById(UtilisateurId);
         return UtilisateurId+" Utilisateur deleted from dashboard ";
+    }
+
+    public List<InscriptionParMois> getAllInscriptParMois()
+    {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("dateinscription").ne(null)),  
+                Aggregation.project()
+                        .andExpression("year(dateinscription)").as("anneeInscription")
+                        .andExpression("month(dateinscription)").as("moisInscription"),
+                Aggregation.group("anneeInscription", "moisInscription").count().as("nombreInscriptions"),
+                Aggregation.project("anneeInscription", "moisInscription", "nombreInscriptions")
+                        .andExclude("_id"),
+                Aggregation.sort(Sort.Direction.DESC, "anneeInscription", "moisInscription")
+        );
+
+        AggregationResults<InscriptionParMois> results = mongoTemplate.aggregate(
+                aggregation, "utilisateur", InscriptionParMois.class);
+
+        return results.getMappedResults();
     }
 }
