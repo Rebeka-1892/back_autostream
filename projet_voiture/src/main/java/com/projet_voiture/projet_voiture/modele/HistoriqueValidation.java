@@ -1,6 +1,6 @@
 package com.projet_voiture.projet_voiture.modele;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,14 +8,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document(collection = "validation")
+@Document(collection = "historiquevalidation")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Validation {
+public class HistoriqueValidation {
+    
     @Id
+    String idhistoriquevalidation;
     String idvalidation;
     int etat;
-    // LocalDateTime datemodif;
+    LocalDateTime datemodif;
     String idannonce;
 }

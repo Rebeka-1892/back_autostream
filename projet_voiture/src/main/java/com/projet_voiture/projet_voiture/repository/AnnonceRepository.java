@@ -9,6 +9,7 @@ public interface AnnonceRepository extends MongoRepository<Annonce, String>{
 
     List<Annonce> findAllByIdannonceNotIn(List<String> allValidationIds);
 
+    public List<Annonce> findByIdannonceIn(List<String> idAnnonces);
     // @Query("{'idutilisateur': ?0, 'idannonce': {$in: ['$idannonce'], '$nin': [2]}}")
     // List<Annonce> findByIduutilisateurAndIdannonceInValidationAndEtatNotEqualToTwo(String idutilisateur);
 

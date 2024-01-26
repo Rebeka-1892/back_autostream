@@ -21,7 +21,7 @@ import com.projet_voiture.projet_voiture.tools.JwtUtil;
 
 
 @RestController
-@RequestMapping("/Favori")
+@RequestMapping("/favori")
 public class FavoriController {
     @Autowired
     private FavoriService service;

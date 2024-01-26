@@ -66,13 +66,6 @@ CREATE TABLE modele(
  FOREIGN KEY(idmarque) REFERENCES marque(idmarque)
 );
 
-create table utilisateur(
-    idUtilisateur serial primary key,
-    login varchar,
-    motdepasse varchar,
-    role varchar
-);
-
 create table commission(
     idcommission serial primary key,
     valeur real,
@@ -86,3 +79,16 @@ create table tresorerie(
     sortie real,
     datemouvement timestamp
 );
+
+create view v_gain_par_mois as
+    select
+        ROW_NUMBER() OVER (ORDER BY extract(year from datemouvement), extract(month from datemouvement)) AS id, 
+        extract(year from datemouvement) as annee,
+        extract(month from datemouvement) as mois,
+        sum(entre) as prix
+    from 
+        tresorerie
+    group by 
+        annee, mois
+    order by 
+        extract(year from datemouvement) desc, extract(month from datemouvement) desc

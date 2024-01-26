@@ -8,6 +8,9 @@ import java.util.List;
 public interface  ValidationRepository extends MongoRepository<Validation,String>  {
     List<Validation> findByEtat(int etat);
 
+    @Query("{ 'etat': { $ne: 2 } }")
+    List<Validation> findByEtatNotEqualToTwo();
+
     @Query(value = "{}", fields = "{ 'idannonce' : 1 }")
     List<String> findAllValidationIds();
 }

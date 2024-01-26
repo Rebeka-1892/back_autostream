@@ -64,6 +64,8 @@ public class SecurityConfig {
               .requestMatchers("/login/**").permitAll()
               .requestMatchers("/validation/**").permitAll()
               .requestMatchers("/voiture/**").permitAll()
+              .requestMatchers("/commission/**").permitAll()
+              .requestMatchers("/tresorerie/**").permitAll()
               // .requestMatchers(HttpMethod.GET, "/test/hello").permitAll()
 
               .anyRequest()

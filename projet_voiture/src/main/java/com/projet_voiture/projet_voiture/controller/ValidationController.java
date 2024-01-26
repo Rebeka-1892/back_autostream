@@ -21,7 +21,7 @@ public class ValidationController {
     @GetMapping("/list")
     public List<String> findAllValidationIds() {
         return service.getAllValidationIds();
-    }       
+    }  
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,7 +35,7 @@ public class ValidationController {
     }
 
     @GetMapping("/etat/{etat}")
-    public List<Validation> findByEtat(int etat) {
+    public List<Validation> findByEtat(@PathVariable int etat) {
         return service.findByEtat(etat);
     }
 

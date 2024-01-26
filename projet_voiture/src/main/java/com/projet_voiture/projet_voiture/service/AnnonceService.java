@@ -29,6 +29,10 @@ public class AnnonceService {
     public List<Annonce> getUnvalidatedAnnonces() {
         return repository.findAllByIdannonceNotIn(validationService.getAllValidationIds());
     }
+
+    public List<Annonce> getHistorique(String idutilisateur) {
+        return repository.findByIduutilisateurAndIdannonceIn(idutilisateur, validationService.getHistoriqueValidation());
+    }
      
     public Annonce modifAnnonce(Annonce annonce)
     {
