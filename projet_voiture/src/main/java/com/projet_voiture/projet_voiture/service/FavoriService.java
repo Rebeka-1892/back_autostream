@@ -18,26 +18,14 @@ public class FavoriService {
         return repository.findByIdutilisateur(idutilisateur);
     }
 
-    public String deleteFavoriByIdannonceAndIdutilisateur(String idannonce, String idutilisateur) {
-        repository.deleteByIdannonceAndIdutilisateur(idannonce, idutilisateur);        
-        return " Deleted from Favori ";
-    }
-
     public Favori insert(Favori Favori) {
         Favori.setIdfavori(UUID.randomUUID().toString().split("-")[0]);
         return repository.save(Favori);
-    }
-
-    public List<Favori> findAll() {
-        return repository.findAll();
-    }
-
-    public Favori findById(String FavoriId){
-        return repository.findById(FavoriId).get();
     }
 
     public String deleteFavori(String FavoriId){
         repository.deleteById(FavoriId);
         return FavoriId+" Favori deleted from dashboard ";
     }
+
 }

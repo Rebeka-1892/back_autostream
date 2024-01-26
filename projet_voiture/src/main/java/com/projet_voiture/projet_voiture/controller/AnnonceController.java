@@ -3,7 +3,7 @@ package com.projet_voiture.projet_voiture.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
- 
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
 import com.projet_voiture.projet_voiture.modele.HistoriqueAnnonce;
@@ -23,6 +23,12 @@ public class AnnonceController {
 
     @Autowired
     private HistoriqueAnnonceService historiqueAnnonceService;
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/historique/{Idutilisateur}")
+    public List<Annonce> getHistorique(@PathVariable String Idutilisateur) {
+        return service.getHistorique(Idutilisateur);
+    }
 
     @GetMapping("/unvalid")
     public List<Annonce> getUnvalidatedAnnonces() throws IOException {

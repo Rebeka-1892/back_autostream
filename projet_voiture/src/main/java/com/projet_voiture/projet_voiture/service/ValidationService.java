@@ -19,6 +19,10 @@ public class ValidationService {
         return repository.findAll().stream().map(Validation::getIdannonce).collect(Collectors.toList());
     }
 
+    public List<String> getHistoriqueValidation() {
+        return repository.findByEtatNotEqualToTwo().stream().map(Validation::getIdannonce).collect(Collectors.toList());
+    }
+
     public List<Validation> findByEtat(int etat){
         return repository.findByEtat(etat);
     }
@@ -38,7 +42,7 @@ public class ValidationService {
 
     public Validation updateValidation(Validation ValidationRequest){
         Validation existingValidation = repository.findById(ValidationRequest.getIdvalidation()).get();
-        existingValidation.setDatemodif(ValidationRequest.getDatemodif());
+        // existingValidation.setDatemodif(ValidationRequest.getDatemodif());
         existingValidation.setEtat(ValidationRequest.getEtat());
         existingValidation.setIdannonce(ValidationRequest.getIdannonce());
         return repository.save(existingValidation);

@@ -50,8 +50,6 @@ public class SecurityConfig {
         .authorizeHttpRequests(req -> {
           req
               .requestMatchers("/annonce/**").permitAll()
-              .requestMatchers("/annonce/**").permitAll()
-              .requestMatchers("/annonce/**").permitAll()
               .requestMatchers("/carrosserie/**").permitAll()
               .requestMatchers("/categorie/**").permitAll()
               .requestMatchers("/continent/**").permitAll()
