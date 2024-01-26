@@ -2,13 +2,17 @@ package com.projet_voiture.projet_voiture.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
- 
+import org.springframework.security.access.prepost.PreAuthorize;
 
+import com.projet_voiture.projet_voiture.modele.Annonce;
+import com.projet_voiture.projet_voiture.modele.Utilisateur;
 import com.projet_voiture.projet_voiture.modele.Validation;
+import com.projet_voiture.projet_voiture.service.AnnonceService;
 import com.projet_voiture.projet_voiture.service.ValidationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 
@@ -17,6 +21,8 @@ import java.util.List;
 public class ValidationController {
     @Autowired
     private ValidationService service;
+    @Autowired
+    private AnnonceService serviceannonce;
 
     @GetMapping("/list")
     public List<String> findAllValidationIds() {
@@ -29,28 +35,29 @@ public class ValidationController {
         return service.insert(Validation);
     }
 
-    @GetMapping
-    public List<Validation> findAll() {
-        return service.findAll();
-    }
+    // @GetMapping
+    // public List<Validation> findAll() {
+    //     return service.findAll();
+    // }
 
     @GetMapping("/etat/{etat}")
     public List<Validation> findByEtat(@PathVariable int etat) {
         return service.findByEtat(etat);
     }
 
-    @GetMapping("/{ValidationId}")
-    public Validation findById(@PathVariable String ValidationId) {
-        return service.findById(ValidationId);
-    }
+    // @GetMapping("/{ValidationId}")
+    // public Validation findById(@PathVariable String ValidationId) {
+    //     return service.findById(ValidationId);
+    // }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping
     public Validation updateValidation(@RequestBody Validation Validation) {
-        return service.updateValidation(Validation);
+        return serviceannonce.updateValidation(Validation);
     }
 
-    @DeleteMapping("/{ValidationId}")
-    public String deleteValidation(@PathVariable String ValidationId) {
-        return service.deleteValidation(ValidationId);
-    }
+    // @DeleteMapping("/{ValidationId}")
+    // public String deleteValidation(@PathVariable String ValidationId) {
+    //     return service.deleteValidation(ValidationId);
+    // }
 }

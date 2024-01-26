@@ -3,6 +3,7 @@ package com.projet_voiture.projet_voiture.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.Commission;
@@ -16,7 +17,7 @@ public class CommissionController {
     @Autowired
     private CommissionService commissionService;
 
-    @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Commission> insert(@RequestBody Commission commission) {
@@ -39,15 +40,15 @@ public class CommissionController {
         
     }
 
-    @PutMapping
-    public ResponseEntity<Commission> updateValidation(@RequestBody Commission commission) {
+    // @PutMapping
+    // public ResponseEntity<Commission> updateValidation(@RequestBody Commission commission) {
         
-        try {
-            return ResponseEntity.ok().body(commissionService.updateCommission(commission));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    //     try {
+    //         return ResponseEntity.ok().body(commissionService.updateCommission(commission));
+    //     } catch (Exception e) {
+    //         return ResponseEntity.notFound().build();
+    //     }
         
-    }
+    // }
 
 }

@@ -31,9 +31,17 @@ public class FavoriController {
     private UtilisateurRepository repository;
 
     @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
-    @GetMapping("/{idutilisateur}")
-    public List<Favori> getListeFavoris(@PathVariable String idutilisateur) {
-        return service.getFavorisByIdutilisateur(idutilisateur);
+    @GetMapping()
+    public List<Favori> getListeFavoris() {
+        String login = String.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        Optional<Utilisateur> utilisateurOptional = repository.findByEmail(login);
+        Utilisateur utilisateur = new Utilisateur();
+        if (utilisateurOptional.isPresent()) {
+            utilisateur = utilisateurOptional.get();
+            return service.getFavorisByIdutilisateur(utilisateur.getIdutilisateur());
+        }
+        return null;
     }
      
     @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
@@ -41,11 +49,6 @@ public class FavoriController {
     @ResponseStatus(HttpStatus.CREATED)
     public Favori insert(@RequestBody Favori Favori) {
         String login = String.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
-
-        // String authorization = request.getHeader("Authorization");
-        // String token = authorization.substring(7);
-        // System.out.println("Token: " + token);
-        // String login = jwtUtil.extractLogin(token);
 
         Optional<Utilisateur> utilisateurOptional = repository.findByEmail(login);
         Utilisateur utilisateur = new Utilisateur();

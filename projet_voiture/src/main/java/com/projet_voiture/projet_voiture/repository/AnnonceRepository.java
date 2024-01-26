@@ -7,11 +7,9 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface AnnonceRepository extends MongoRepository<Annonce, String>{
 
-    List<Annonce> findAllByIdannonceNotIn(List<String> allValidationIds);
+    List<Annonce> findAllByIdannonceIn(List<String> allValidationIds);
 
     public List<Annonce> findByIdannonceIn(List<String> idAnnonces);
-    // @Query("{'idutilisateur': ?0, 'idannonce': {$in: ['$idannonce'], '$nin': [2]}}")
-    // List<Annonce> findByIduutilisateurAndIdannonceInValidationAndEtatNotEqualToTwo(String idutilisateur);
 
     @Query("{ 'idutilisateur': ?0, 'idannonce': { $in: ?1 } }")
     List<Annonce> findByIduutilisateurAndIdannonceIn(String idutilisateur, List<String> allValidationIds);

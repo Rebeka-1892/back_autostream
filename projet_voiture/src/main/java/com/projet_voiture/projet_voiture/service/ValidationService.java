@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,21 +24,24 @@ public class ValidationService {
     @Autowired
     private ValidationRepository repository;   
 
-    @Autowired
-    private AnnonceService annonceService;
+    // @Autowired
+    // private AnnonceService annonceService;
 
-    @Autowired
-    private CommissionService commissionService;
+    // @Autowired
+    // private CommissionService commissionService;
 
-    @Autowired
-    private TresorerieService tresorerieService;
+    // @Autowired
+    // private TresorerieService tresorerieService;
 
-    @Autowired
-    private HistoriqueValidationService historiqueValidationService;
+    // @Autowired
+    // private HistoriqueValidationService historiqueValidationService;
 
+    public Optional<Validation> findByIdannonce(String idannonce) {
+        return repository.findByIdannonce(idannonce);
+    }
 
     public List<String> getAllValidationIds() {
-        return repository.findAll().stream().map(Validation::getIdannonce).collect(Collectors.toList());
+        return repository.findByEtat(0).stream().map(Validation::getIdannonce).collect(Collectors.toList());
     }
 
     public List<String> getHistoriqueValidation() {
@@ -53,54 +57,51 @@ public class ValidationService {
         return repository.save(Validation);
     }
 
-    public List<Validation> findAll() {
-        return repository.findAll();
-    }
+    // public List<Validation> findAll() {
+    //     return repository.findAll();
+    // }
+    // public Validation findById(String ValidationId){
+    //     return repository.findById(ValidationId).get();
+    // }
 
-    public Validation findById(String ValidationId){
-        return repository.findById(ValidationId).get();
-    }
+    // @Transactional
+    // public Validation updateValidation(Validation ValidationRequest){
+    //     Validation existingValidation = repository.findById(ValidationRequest.getIdvalidation()).get();
 
-    @Transactional
-    public Validation updateValidation(Validation ValidationRequest){
-        Validation existingValidation = repository.findById(ValidationRequest.getIdvalidation()).get();
+    //     HistoriqueValidation historiqueValidation = new HistoriqueValidation();
+    //     historiqueValidation.setIdvalidation(existingValidation.getIdvalidation());
+    //     historiqueValidation.setIdannonce(existingValidation.getIdannonce());
+    //     historiqueValidation.setEtat(existingValidation.getEtat());
+    //     historiqueValidation.setDatemodif(LocalDateTime.now());
 
-        HistoriqueValidation historiqueValidation = new HistoriqueValidation();
-        historiqueValidation.setIdvalidation(existingValidation.getIdvalidation());
-        historiqueValidation.setIdannonce(existingValidation.getIdannonce());
-        historiqueValidation.setEtat(existingValidation.getEtat());
-        historiqueValidation.setDatemodif(LocalDateTime.now());
+    //     historiqueValidationService.insertHistoriqueValidation(historiqueValidation);
 
-        historiqueValidationService.insertHistoriqueValidation(historiqueValidation);
-
-        existingValidation.setEtat(ValidationRequest.getEtat());
-        existingValidation.setIdannonce(ValidationRequest.getIdannonce());
+    //     existingValidation.setEtat(ValidationRequest.getEtat());
+    //     existingValidation.setIdannonce(ValidationRequest.getIdannonce());
 
         
 
-        if(existingValidation.getEtat() == 3) {
-            double pourcentage = commissionService.getLastCommission().getValeur();
-            double prixVoiture = annonceService.findById(existingValidation.getIdannonce()).getPrix();
+    //     if(existingValidation.getEtat() == 3) {
+    //         double pourcentage = commissionService.getLastCommission().getValeur();
+    //         double prixVoiture = annonceService.findById(existingValidation.getIdannonce()).getPrix();
 
-            double gainSite = prixVoiture *(pourcentage/100);
+    //         double gainSite = prixVoiture *(pourcentage/100);
 
-            Tresorerie tresorerie = new Tresorerie();
-            tresorerie.setIdannonce(existingValidation.getIdannonce());
-            tresorerie.setEntre(gainSite);
-            tresorerie.setSortie(0);
-            LocalDateTime currentDate = LocalDateTime.now();
-            Instant instant = currentDate.toInstant(ZoneOffset.UTC);
-            tresorerie.setDatemouvement(Timestamp.from(instant));
+    //         Tresorerie tresorerie = new Tresorerie();
+    //         tresorerie.setIdannonce(existingValidation.getIdannonce());
+    //         tresorerie.setEntre(gainSite);
+    //         tresorerie.setSortie(0);
+    //         LocalDateTime currentDate = LocalDateTime.now();
+    //         Instant instant = currentDate.toInstant(ZoneOffset.UTC);
+    //         tresorerie.setDatemouvement(Timestamp.from(instant));
 
-            tresorerieService.insertTresorerie(tresorerie);
-        }
+    //         tresorerieService.insertTresorerie(tresorerie);
+    //     }
+    //     return repository.save(existingValidation);
+    // }
 
-
-        return repository.save(existingValidation);
-    }
-
-    public String deleteValidation(String ValidationId){
-        repository.deleteById(ValidationId);
-        return ValidationId+" Validation deleted from dashboard ";
-    }
+    // public String deleteValidation(String ValidationId){
+    //     repository.deleteById(ValidationId);
+    //     return ValidationId+" Validation deleted from dashboard ";
+    // }
 }

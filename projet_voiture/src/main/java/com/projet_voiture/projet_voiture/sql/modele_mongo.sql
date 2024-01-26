@@ -40,3 +40,6 @@ db.options.replaceOne({ idtype: 1 }, { idoptions: 1, nomoptions: "New look", idt
 db.product.insertOne({idproduct: 1, nom: "bague"})
 db.product.insertOne({idproduct: 2, nom: "collier"})
 db.product.insertOne({idproduct: 1, nom: "sac"})
+
+
+db.annonce.updateOne({ idannonce: "39da152c" }, { $set: { idvoiture: "ad447b93" } })
