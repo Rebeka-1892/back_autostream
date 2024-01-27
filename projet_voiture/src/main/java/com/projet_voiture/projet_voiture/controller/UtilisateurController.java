@@ -44,7 +44,6 @@ public class UtilisateurController {
     public ResponseEntity<Map<String, Object>> auth(@RequestBody AuthenticationRequest request) {
         Map<String, Object> response = Util.getDefaultResponse();
         response.put("response", authservice.authenticate(request));
-        System.out.println("-------------> " + new ResponseEntity<Map<String, Object>>(response, HttpStatusCode.valueOf(200)));
         return new ResponseEntity<Map<String, Object>>(response, HttpStatusCode.valueOf(200));
     }
 
