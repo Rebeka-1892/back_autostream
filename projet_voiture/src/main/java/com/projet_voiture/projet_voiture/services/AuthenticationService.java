@@ -7,6 +7,9 @@ import com.projet_voiture.projet_voiture.modele.Utilisateur;
 import com.projet_voiture.projet_voiture.repository.UtilisateurRepository;
 import com.projet_voiture.projet_voiture.tools.JwtUtil;
 import com.projet_voiture.projet_voiture.tools.Role;
+
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,6 +38,7 @@ public class AuthenticationService {
     System.out.println(user.getNomutilisateur());
     user.setEmail(request.getEmail());
     user.setMdp(passwordEncoder.encode(request.getMdp()));
+    user.setDateinscription(LocalDate.now());
     String role = request.getRole();
     if(role.compareToIgnoreCase("1") == 0){
       user.setRole(Role.ROLE_ADMIN);

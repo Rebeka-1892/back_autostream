@@ -1,5 +1,6 @@
 package com.projet_voiture.projet_voiture.modele;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class Utilisateur implements UserDetails {
     String mdp;
     @Enumerated(EnumType.STRING)
     Role role;
+    LocalDate dateinscription;
 
     @Override
     public String toString() {
