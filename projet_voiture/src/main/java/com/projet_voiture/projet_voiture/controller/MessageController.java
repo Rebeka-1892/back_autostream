@@ -63,10 +63,18 @@ public class MessageController {
     //     return service.deleteMessage(MessageId);
     // }
 
+    @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
     @GetMapping("/messages")
-    public Set<Message> getMessagesBetweenUsers(
-            @RequestParam String idSend,
-            @RequestParam String idReceive) {
-        return service.findByIdSendAndIdReceive(idSend, idReceive);
+    public Set<Message> getMessagesBetweenUsers(@RequestParam String idReceive) {
+        String login = String.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        Optional<Utilisateur> utilisateurOptional = repository.findByEmail(login);
+        Utilisateur utilisateur = new Utilisateur();
+        if (utilisateurOptional.isPresent()) {
+
+            utilisateur = utilisateurOptional.get();
+            return service.findByIdSendAndIdReceive(utilisateur.getIdutilisateur(), idReceive);
+        }
+        return null;
     }
 }
