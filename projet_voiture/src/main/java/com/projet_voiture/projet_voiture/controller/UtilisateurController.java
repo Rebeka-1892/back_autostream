@@ -37,7 +37,7 @@ public class UtilisateurController {
         response.put("response", authservice.register(request));
         return new ResponseEntity<Map<String, Object>>(
                 response,
-                HttpStatusCode.valueOf(400));
+                HttpStatusCode.valueOf(200));
     }
 
     @PostMapping("/auth")

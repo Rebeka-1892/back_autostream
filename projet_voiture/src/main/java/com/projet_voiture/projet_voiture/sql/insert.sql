@@ -100,3 +100,7 @@ INSERT INTO type (nomtype)
 VALUES 
 ('Interieur'), 
 ('Exterieur');
+
+INSERT INTO commission (valeur, date)
+VALUES
+(30, '2023-01-01');

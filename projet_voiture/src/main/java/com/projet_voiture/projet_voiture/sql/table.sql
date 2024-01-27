@@ -16,7 +16,7 @@ CREATE TABLE marque(
  idmarque SERIAL PRIMARY KEY,
  nommarque VARCHAR(50),
  idcontinent INT NOT NULL,
- photo bytea,
+ photo text,
  FOREIGN KEY(idcontinent) REFERENCES continent(idcontinent)
 );
 
@@ -91,4 +91,4 @@ create view v_gain_par_mois as
     group by 
         annee, mois
     order by 
-        extract(year from datemouvement) desc, extract(month from datemouvement) desc
+        extract(year from datemouvement) desc, extract(month from datemouvement) desc;
