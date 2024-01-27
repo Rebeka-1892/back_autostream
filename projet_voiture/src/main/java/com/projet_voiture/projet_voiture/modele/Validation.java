@@ -1,6 +1,6 @@
 package com.projet_voiture.projet_voiture.modele;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,6 +16,6 @@ public class Validation {
     @Id
     String idvalidation;
     int etat;
-    // LocalDateTime datemodif;
+    LocalDateTime datemodif;
     String idannonce;
 }
