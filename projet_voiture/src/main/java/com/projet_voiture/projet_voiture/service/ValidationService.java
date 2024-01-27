@@ -1,12 +1,18 @@
 package com.projet_voiture.projet_voiture.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projet_voiture.projet_voiture.modele.HistoriqueValidation;
 import com.projet_voiture.projet_voiture.modele.Tresorerie;
 import com.projet_voiture.projet_voiture.modele.Validation;
+import com.projet.voiture_occasion.modele.NombreVoitureVenduParMois;
 import com.projet_voiture.projet_voiture.repository.ValidationRepository;
 
 import java.sql.Date;
@@ -35,6 +41,10 @@ public class ValidationService {
 
     // @Autowired
     // private HistoriqueValidationService historiqueValidationService;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
 
     public Optional<Validation> findByIdannonce(String idannonce) {
         return repository.findByIdannonce(idannonce);
@@ -72,13 +82,13 @@ public class ValidationService {
     //     historiqueValidation.setIdvalidation(existingValidation.getIdvalidation());
     //     historiqueValidation.setIdannonce(existingValidation.getIdannonce());
     //     historiqueValidation.setEtat(existingValidation.getEtat());
-    //     historiqueValidation.setDatemodif(LocalDateTime.now());
+    //     historiqueValidation.setDatemodif(existingValidation.getDatemodif());
 
     //     historiqueValidationService.insertHistoriqueValidation(historiqueValidation);
 
     //     existingValidation.setEtat(ValidationRequest.getEtat());
     //     existingValidation.setIdannonce(ValidationRequest.getIdannonce());
-
+    //     existingValidation.setDatemodif(LocalDateTime.now());
         
 
     //     if(existingValidation.getEtat() == 3) {
@@ -104,4 +114,22 @@ public class ValidationService {
     //     repository.deleteById(ValidationId);
     //     return ValidationId+" Validation deleted from dashboard ";
     // }
+
+    public List<NombreVoitureVenduParMois> getNombreVenteParMois() {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("etat").is(3).and("datemodif").ne(null)),
+                Aggregation.project()
+                        .andExpression("year(datemodif)").as("anneeValidation")
+                        .andExpression("month(datemodif)").as("moisValidation"),
+                Aggregation.group("anneeValidation", "moisValidation").count().as("nombreValidations"),
+                Aggregation.project("anneeValidation", "moisValidation", "nombreValidations")
+                        .andExclude("_id"),
+                Aggregation.sort(Sort.Direction.DESC, "anneeValidation", "moisValidation")
+        );
+
+        AggregationResults<NombreVoitureVenduParMois> results = mongoTemplate.aggregate(
+                aggregation, "validation", NombreVoitureVenduParMois.class);
+
+        return results.getMappedResults();
+    }
 }

@@ -48,14 +48,14 @@ public class AnnonceService {
         HistoriqueValidation historiqueValidation = new HistoriqueValidation();
         historiqueValidation.setIdvalidation(existingValidation.getIdvalidation());
         historiqueValidation.setIdannonce(existingValidation.getIdannonce());
-        historiqueValidation.setEtat(ValidationRequest.getEtat());
-        historiqueValidation.setDatemodif(LocalDateTime.now());
+        historiqueValidation.setEtat(existingValidation.getEtat());
+        historiqueValidation.setDatemodif(existingValidation.getDatemodif());
 
         historiqueValidationService.insertHistoriqueValidation(historiqueValidation);
 
         existingValidation.setEtat(ValidationRequest.getEtat());
         existingValidation.setIdannonce(ValidationRequest.getIdannonce());
-
+        existingValidation.setDatemodif(LocalDateTime.now());
         
 
         if(existingValidation.getEtat() == 3) {

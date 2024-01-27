@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.projet_voiture.projet_voiture.modele.Annonce;
+import com.projet_voiture.projet_voiture.modele.NombreVoitureVenduParMois;
 import com.projet_voiture.projet_voiture.modele.Utilisateur;
 import com.projet_voiture.projet_voiture.modele.Validation;
 import com.projet_voiture.projet_voiture.service.AnnonceService;
@@ -60,4 +61,10 @@ public class ValidationController {
     // public String deleteValidation(@PathVariable String ValidationId) {
     //     return service.deleteValidation(ValidationId);
     // }
+
+    @GetMapping("/nbVoitureVendu")
+    public List<NombreVoitureVenduParMois> nbVoitureVendu()
+    {
+        return service.getNombreVenteParMois();
+    }
 }
