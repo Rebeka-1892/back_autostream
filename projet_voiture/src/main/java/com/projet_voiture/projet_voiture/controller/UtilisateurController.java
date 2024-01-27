@@ -34,6 +34,7 @@ public class UtilisateurController {
     public ResponseEntity<Map<String, Object>> register(
             @RequestBody RegisterRequest request) {
         Map<String, Object> response = Util.getDefaultResponse();
+        request.setRole("0");
         response.put("response", authservice.register(request));
         return new ResponseEntity<Map<String, Object>>(
                 response,

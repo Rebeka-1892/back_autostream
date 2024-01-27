@@ -32,6 +32,7 @@ public class AuthenticationService {
   public AuthenticationResponse register(RegisterRequest request) {
     var user = new Utilisateur();
     user.setNomutilisateur(request.getNomutilisateur());
+    System.out.println(user.getNomutilisateur());
     user.setEmail(request.getEmail());
     user.setMdp(passwordEncoder.encode(request.getMdp()));
     String role = request.getRole();

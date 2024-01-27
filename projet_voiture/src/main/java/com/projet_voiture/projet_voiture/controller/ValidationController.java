@@ -62,6 +62,7 @@ public class ValidationController {
     //     return service.deleteValidation(ValidationId);
     // }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/nbVoitureVendu")
     public List<NombreVoitureVenduParMois> nbVoitureVendu()
     {
