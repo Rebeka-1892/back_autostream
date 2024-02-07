@@ -55,6 +55,10 @@ public class UtilisateurController {
         return service.findById(UtilisateurId);
     }
 
+    public List<Utilisateur> findAll() {
+        return service.findAll();
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/nbInscriptMois")
     public List<InscriptionParMois> getInscritParMois()
