@@ -55,6 +55,7 @@ public class UtilisateurController {
         return service.findById(UtilisateurId);
     }
 
+    @GetMapping("/allUser)
     public List<Utilisateur> findAll() {
         return service.findAll();
     }
