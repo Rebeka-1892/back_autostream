@@ -51,6 +51,10 @@ public class UtilisateurService {
         return repository.findById(UtilisateurId).get();
     }
 
+    public Utilisateur findByEmail(String email) {
+        return repository.findByEmail(email).get();
+    }
+
     public Utilisateur updateUtilisateur(Utilisateur UtilisateurRequest){
         Utilisateur existingUtilisateur = repository.findById(UtilisateurRequest.getIdutilisateur()).get();
         existingUtilisateur.setEmail(UtilisateurRequest.getEmail());
