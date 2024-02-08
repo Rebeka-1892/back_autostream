@@ -55,7 +55,7 @@ public class UtilisateurController {
         return service.findById(UtilisateurId);
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public Utilisateur findByEmail(@PathVariable String email) {
         return service.findByEmail(email);
     }
