@@ -55,6 +55,11 @@ public class UtilisateurController {
         return service.findById(UtilisateurId);
     }
 
+    @GetMapping("/{email}")
+    public Utilisateur findByEmail(@PathVariable String email) {
+        return service.findByEmail(email);
+    }
+
     @GetMapping("/allUser")
     public List<Utilisateur> findAll() {
         return service.findAll();
